@@ -19,7 +19,7 @@ import { logoutUser } from "../redux/actions/user";
 import logo from "../assets/styles/logo.png";
 import { FaShoppingCart } from "react-icons/fa";
 
-class MyNavbar extends React.Component {
+class Navibar extends React.Component {
   state = {
     // navigate: false, // it is only initial value.
   };
@@ -175,4 +175,4 @@ const mapDispatchToProps = {
   logoutUser,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyNavbar);
+export default connect(mapStateToProps, mapDispatchToProps)(Navibar);

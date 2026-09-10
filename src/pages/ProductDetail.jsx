@@ -176,32 +176,36 @@ class ProductDetail extends React.Component {
                   {this.state.productData.description}
                 </p>
                 </div>
-                <div className="d-flex flex-row">
-                  <span className="fw-bold fs-5" style={{paddingRight: 10}}>Qty:</span>
-                  <button
-                    // terdapat tanda kurung dg parameter kosong krn fungsi yg dipanggil menerima parameter
-                    // decrement sesuai dg kondisi di dlm fungsi tsb
-                    onClick={() => this.qtyBtnHandler("decrement")}
-                    className="btn btn-warning text-white fw-bold"
-                  >
-                    -
-                  </button>
-                  <span className="fs-4 fw-bold px-3 ">{this.state.quantity}</span>
-                  <button
-                    // terdapat tanda kurung dg parameter kosong krn fungsi yg dipanggil menerima parameter
-                    // increment sesuai dg kondisi di dlm fungsi tsb
-                    onClick={() => this.qtyBtnHandler("increment")}
-                    className="btn btn-warning text-white fw-bold"
-                  >
-                    +
-                  </button>
-                </div>
-                <button
-                  onClick={this.addToCartHandler}
-                  className="btn btn-warning text-white mt-3 fw-bold"
-                >
-                  Add to cart
-                </button>
+                {this.props.userGlobal.role !== "admin" ? (
+                  <>
+                    <div className="d-flex flex-row">
+                    <span className="fw-bold fs-5" style={{paddingRight: 10}}>Qty:</span>
+                    <button
+                      // terdapat tanda kurung dg parameter kosong krn fungsi yg dipanggil menerima parameter
+                      // decrement sesuai dg kondisi di dlm fungsi tsb
+                      onClick={() => this.qtyBtnHandler("decrement")}
+                      className="btn btn-warning text-white fw-bold"
+                    >
+                      -
+                    </button>
+                    <span className="fs-4 fw-bold px-3 ">{this.state.quantity}</span>
+                    <button
+                      // terdapat tanda kurung dg parameter kosong krn fungsi yg dipanggil menerima parameter
+                      // increment sesuai dg kondisi di dlm fungsi tsb
+                      onClick={() => this.qtyBtnHandler("increment")}
+                      className="btn btn-warning text-white fw-bold"
+                    >
+                      +
+                    </button>
+                    </div>
+                    <button
+                      onClick={this.addToCartHandler}
+                      className="btn btn-warning text-white mt-3 fw-bold"
+                    >
+                      Add to cart
+                    </button>
+                  </>
+                ) : null}
               </div>
             </div>
           )}

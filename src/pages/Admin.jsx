@@ -13,6 +13,7 @@ import swal from "sweetalert";
 
 class Admin extends React.Component {
   state = {
+    loading: false,
     // productList: untuk menyimpan data product list
     productList: [],
     filterProductList: [],
@@ -43,6 +44,7 @@ class Admin extends React.Component {
   };
 
   fetchProducts = () => {
+    this.setState({ loading: true });
     Axios.get(`${API_URL}/products`)
       .then((result) => {
         let maxPage = Math.ceil(result.data.length / this.state.itemPerPage);
@@ -50,10 +52,14 @@ class Admin extends React.Component {
           productList: result.data,
           maxPage: maxPage,
           filterProductList: result.data,
+          loading: false,
         });
       })
       .catch((err) => {
         console.log(err);
+        this.setState({
+          loading: false,
+        });
         swal({
           title: "There is some mistake in server",
           icon: "warning",
@@ -348,6 +354,7 @@ class Admin extends React.Component {
   };
 
   render() {
+    const { filterProductList, loading } = this.state;
     // jika login sbg user maka direturn to home page
     if (this.props.userGlobal.role !== "admin") {
       return <Navigate to="/" />;
@@ -375,6 +382,11 @@ class Admin extends React.Component {
                 }}
                 className="form-control mb-3 fw-bold"
                 placeholder="Search..."
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      this.filterHandler();
+                    }
+                }}
               />
               <button
                 className="btn btn-warning text-light fw-bold"
@@ -398,7 +410,32 @@ class Admin extends React.Component {
                 </tr>
               </thead>
               <tbody className="bg-light bg-opacity-75 fs-6 fw-bold">
-                {this.renderProducts()}
+                {loading ? (
+                  <tr>
+                    <td colSpan="100%" className="text-center py-5">
+                      <div
+                        className="spinner-border text-warning"
+                        role="status"
+                      >
+                        <span className="visually-hidden">
+                          Loading...
+                        </span>
+                      </div>
+
+                      <p className="fw-bold mt-3 mb-0" style={{ color: "white"}}>
+                        Loading products...
+                      </p>
+                    </td>
+                  </tr>
+                ) : filterProductList.length === 0 ? (
+                    <tr>
+                      <td colSpan="100%" className="text-center">
+                        <p className="fw-bold fs-5 mb-0" style={{ color: "black"}}>
+                          No products available
+                        </p>
+                      </td>
+                    </tr>
+                ) : this.renderProducts()}
               </tbody>
               {/* // form input utk new item */}
               <tfoot className="bg-warning bg-opacity-25">

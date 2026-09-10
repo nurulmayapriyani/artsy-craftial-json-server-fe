@@ -104,14 +104,16 @@ class ProductCard extends React.Component {
             </span>
             </div>
           </div>
-          <div className="d-flex flex-row justify-content-end">
-            <button
-              onClick={this.addToCartHandler}
-              className="btn btn-warning text-light mt-2 fw-bold"
-            >
-              Add to cart
-            </button>
-          </div>
+          {this.props.userGlobal.role !== "admin" ? (
+            <div className="d-flex flex-row justify-content-end">
+              <button
+                onClick={this.addToCartHandler}
+                className="btn btn-warning text-light mt-2 fw-bold"
+              >
+                Add to cart
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
     );

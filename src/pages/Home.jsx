@@ -1,5 +1,5 @@
 import React from "react";
-import ProductCard from "../components/productCard";
+import ProductCard from "../components/ProductCard";
 import { connect } from "react-redux";
 // import Axios setiap kali terdapat panggilan ke API
 import Axios from "axios";
@@ -10,6 +10,7 @@ import swal from "sweetalert";
 
 class Home extends React.Component {
   state = {
+    loading: false,
     // productList: untuk menampung result.data
     productList: [],
     // filteredProductList: untuk menyimpan data yg sdh difilter pd searchBtnHandler
@@ -29,6 +30,7 @@ class Home extends React.Component {
   };
 
   fetchProducts = () => {
+    this.setState({ loading: true });
     Axios.get(`${API_URL}/products`)
       .then((result) => {
         this.setState({
@@ -38,10 +40,14 @@ class Home extends React.Component {
           maxPage: Math.ceil(result.data.length / this.state.itemPerPage),
           // default value sblm filteredProductList: result.data
           filteredProductList: result.data,
+          loading: false,
         });
       })
       .catch((err) => {
         console.log(err);
+        this.setState({
+          loading: false,
+        });
         swal({
           title: "There is some mistake in server",
           icon: "warning",
@@ -179,6 +185,8 @@ class Home extends React.Component {
   }
 
   render() {
+    const { filteredProductList, loading } = this.state;
+
     return (
       <div className="container-fluid">
         <div className="row pt-5">
@@ -197,6 +205,11 @@ class Home extends React.Component {
                   type="text"
                   className="form-control mb-3 fw-bold"
                   placeholder="Search..."
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      this.searchBtnHandler();
+                    }
+                  }}
                 />
                 <label htmlFor="searchCategory" className="fw-bold">
                   Product Category
@@ -340,9 +353,30 @@ class Home extends React.Component {
             </div>
           </div>
           <div className="col">
-            <div className="d-flex flex-wrap flex-row justify-content-center">
+            <div className="d-flex flex-wrap flex-row justify-content-center align-items-center" style={{ minHeight: "60vh" }}>
               {/* Render products here */}
-              {this.renderProducts()}
+              {loading ? (
+                <tr>
+                  <td colSpan="100%" className="text-center py-5">
+                    <div
+                      className="spinner-border text-warning"
+                      role="status"
+                    >
+                      <span className="visually-hidden">
+                        Loading...
+                      </span>
+                    </div>
+
+                    <p className="fw-bold mt-3 mb-0" style={{ color: "white"}}>
+                      Loading products...
+                    </p>
+                  </td>
+                </tr>
+              ) : filteredProductList.length === 0 ? (
+                  <p className="fw-bold fs-5 mb-0" style={{ color: "white"}}>
+                    No products available
+                  </p>
+              ) : this.renderProducts()}
             </div>
           </div>
         </div>

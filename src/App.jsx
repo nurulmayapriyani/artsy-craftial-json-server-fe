@@ -9,7 +9,7 @@ import Admin from "./pages/Admin";
 import Cart from "./pages/Cart";
 import History from "./pages/History";
 import ProductDetail from "./pages/ProductDetail";
-import MyNavbar from "./components/myNavbar";
+import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import "./App.css";
 import { connect } from "react-redux";
@@ -45,7 +45,7 @@ class App extends React.Component {
       return (
         <div className="App ">
           <BrowserRouter tag="div">
-            <MyNavbar />
+            <Navbar />
             <div className="flex-grow-1">
               <Routes>
                 <Route element={<Login />} path="/login" />

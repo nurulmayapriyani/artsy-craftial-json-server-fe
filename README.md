@@ -1,5 +1,11 @@
 # Run JSON Server:
-npx json-server --watch src/fake-api/db.json --port 2000
+npx json-server --watch src/dummy-api/db.json --port 2000
+
+# Linux
+json-server src/dummy-api/db.json --host 0.0.0.0 --port $PORT
+
+# Local
+npx json-server src/dummy-api/db.json --host 0.0.0.0 --port 3000
 
 # Getting Started with Create React App
 
