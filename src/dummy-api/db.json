@@ -565,6 +565,24 @@
       "productImage": "/images/softcover-dream.jpg",
       "quantity": 1,
       "id": 24
+    },
+    {
+      "userId": 1,
+      "productId": 8,
+      "price": 37000,
+      "productName": "Softcover Sketch Book",
+      "productImage": "/images/softcover-sketch.jpg",
+      "quantity": 1,
+      "id": 25
+    },
+    {
+      "userId": 1,
+      "productId": 4,
+      "price": 33000,
+      "productName": "Softcover Harry Potter Book",
+      "productImage": "/images/softcover-harrypotter.jpg",
+      "quantity": 1,
+      "id": 26
     }
   ]
 }

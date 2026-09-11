@@ -11,6 +11,11 @@ import swal from "sweetalert";
 
 class ProductCard extends React.Component {
   addToCartHandler = () => {
+    if(this.props.userGlobal.id === 0){
+      window.location.href = "/login";
+      return;
+    }
+
     Axios.get(`${API_URL}/carts`, { 
       // cari data spesifik, check apakah user sudah memiliki barang tsb di cart
       params: {

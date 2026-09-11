@@ -5,7 +5,7 @@ npx json-server --watch src/dummy-api/db.json --port 2000
 json-server src/dummy-api/db.json --host 0.0.0.0 --port $PORT
 
 # Local
-npx json-server src/dummy-api/db.json --host 0.0.0.0 --port 3000
+npx json-server src/dummy-api/db.json --host 0.0.0.0 --port 2000
 
 # Getting Started with Create React App
 
