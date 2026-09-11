@@ -1,20 +1,21 @@
 import React from "react";
 import "../assets/styles/productCard.css";
 // import Link krn menggunakan tag Link
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import react-redux krn kita perlu user id di params addToCartHandler
 import { connect } from "react-redux";
 import Axios from "axios";
 import { API_URL } from "../constants/API";
 import { getCartData } from "../redux/actions/cart";
 import swal from "sweetalert";
-import { Navigate } from "react-router-dom";
 
 class ProductCard extends React.Component {
   addToCartHandler = () => {
-    if(this.props.userGlobal.id === 0){
-      return <Navigate to="/login" replace />;
+    if (this.props.userGlobal.id === 0) {
+      this.props.navigate("/login");
+      return;
     }
+
 
     Axios.get(`${API_URL}/carts`, { 
       // cari data spesifik, check apakah user sudah memiliki barang tsb di cart
@@ -135,4 +136,15 @@ const mapDispatchToProps = {
   getCartData,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);
+const ConnectedProductCard = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProductCard);
+
+function ProductCardWithNavigation(props) {
+  const navigate = useNavigate();
+
+  return <ConnectedProductCard {...props} navigate={navigate} />;
+}
+
+export default ProductCardWithNavigation;

@@ -3,13 +3,12 @@ import React from "react";
 import Axios from "axios";
 // import API_URL utk bisa akses url
 import { API_URL } from "../constants/API";
-import { useParams } from "react-router-dom"; // way 2
+import { useParams, useNavigate } from "react-router-dom"; // way 2
 // import connect from react-redux to get userId in Axios.post addToCartHandler
 import { connect } from "react-redux";
 import { getCartData } from "../redux/actions/cart";
 import "../assets/styles/gradientStyle.css";
 import swal from "sweetalert";
-import { Navigate } from "react-router-dom";
 
 class ProductDetail extends React.Component {
   state = {
@@ -68,8 +67,9 @@ class ProductDetail extends React.Component {
 
   // function to add qty of certain product to cart
   addToCartHandler = () => {
-    if(this.props.userGlobal.id === 0){
-      return <Navigate to="/login" replace />;
+    if (this.props.userGlobal.id === 0) {
+      this.props.navigate("/login");
+      return;
     }
 
     Axios.get(`${API_URL}/carts`, {
@@ -216,13 +216,6 @@ class ProductDetail extends React.Component {
   }
 }
 
-// way 2
-const withRouter = (WrappedComponent) => (props) => {
-  const params = useParams();
-
-  return <WrappedComponent {...props} params={params} />;
-};
-
 const mapStateToProps = (state) => {
   return {
     userGlobal: state.user,
@@ -233,8 +226,22 @@ const mapDispatchToProps = {
   getCartData,
 };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
-export default connect(
+const ConnectedProductDetail = connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(ProductDetail)); // way 2
+)(ProductDetail);
+
+function ProductDetailWithNavigation(props) {
+  const params = useParams();
+  const navigate = useNavigate();
+
+  return (
+    <ConnectedProductDetail
+      {...props}
+      params={params}
+      navigate={navigate}
+    />
+  );
+}
+
+export default ProductDetailWithNavigation;
