@@ -8,12 +8,12 @@ import Axios from "axios";
 import { API_URL } from "../constants/API";
 import { getCartData } from "../redux/actions/cart";
 import swal from "sweetalert";
+import { Navigate } from "react-router-dom";
 
 class ProductCard extends React.Component {
   addToCartHandler = () => {
     if(this.props.userGlobal.id === 0){
-      window.location.href = "/login";
-      return;
+      return <Navigate to="/login" replace />;
     }
 
     Axios.get(`${API_URL}/carts`, { 

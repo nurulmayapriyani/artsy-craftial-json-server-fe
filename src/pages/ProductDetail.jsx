@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { getCartData } from "../redux/actions/cart";
 import "../assets/styles/gradientStyle.css";
 import swal from "sweetalert";
+import { Navigate } from "react-router-dom";
 
 class ProductDetail extends React.Component {
   state = {
@@ -68,8 +69,7 @@ class ProductDetail extends React.Component {
   // function to add qty of certain product to cart
   addToCartHandler = () => {
     if(this.props.userGlobal.id === 0){
-      window.location.href = "/login";
-      return;
+      return <Navigate to="/login" replace />;
     }
 
     Axios.get(`${API_URL}/carts`, {
