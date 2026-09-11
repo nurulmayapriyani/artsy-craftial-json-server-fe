@@ -161,7 +161,7 @@ class ProductDetail extends React.Component {
                   className="mt-5 pb-5"
                   style={{ width: "100%" }}
                   src={this.state.productData.productImage}
-                  alt="product image"
+                  alt="product"
                 />
               </div>
               <div className="col-7 d-flex pt-2 pb-2 flex-column justify-content-center">

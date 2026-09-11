@@ -13,7 +13,6 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import "./App.css";
 import { connect } from "react-redux";
-import background from "./assets/main_bg.jpg";
 import { userKeepLogin, checkStorage } from "./redux/actions/user";
 import { getCartData } from "./redux/actions/cart";
 import "./assets/styles/gradientStyle.css";
@@ -62,7 +61,6 @@ class App extends React.Component {
             </div>
             <Footer></Footer>
           </BrowserRouter>
-          <img className="bg-image" src={background}></img>
         </div>
       );
     }

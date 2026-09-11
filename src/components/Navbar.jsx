@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 
 // Link: has the same function like tag a but it's from react-router-dom. It has props named "to"
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 // connect from react-redux bcs we want to show username user in navbar
 import { connect } from "react-redux";
 import { logoutUser } from "../redux/actions/user";
